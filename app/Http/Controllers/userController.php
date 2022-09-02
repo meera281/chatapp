@@ -23,49 +23,63 @@ class userController extends Controller
 
     function getData(Request $req)
     {
+        $req->validate([
+            // 'email'=>['required', 'unique:userdetails'],
+            'email'=>['required'],
+            'password'=>['required']
+        ]);
+        
         // return Userdetail::all();
         $userdetail = Userdetail::where('email',$req->email)->get()->first();
         if($userdetail)
         {
-        $checkpassword = Hash::check($req->password, $userdetail->password);
-        if($checkpassword)
-        {
-            // dd($userdetail);
-        $role = $userdetail->role;
-        if ($role == "Admin")
-        {
-            // $req->session()->put("role","Admin");
-            session(["role" => "Admin"]);
-            session(['name' => $userdetail->name ]);
-            session(["id"=>$userdetail->id]);
-            return redirect ("/admin");
-        } 
-        elseif ($role == "Agent")
-        {
-            session(["role"=>"Agent"]);     
-            session(['name' => $userdetail->name]);
-            session(["id"=>$userdetail->id]);
-            session(["name"=>$userdetail->name]);
-            // session(["created_at"=>$userdetail->created_at]);
-
-            if($userdetail->firstlogin == 0)
+            $checkpassword = Hash::check($req->password, $userdetail->password);
+            if($checkpassword)
             {
-                return view ("/resetpassword");
+                // dd($userdetail);
+                $role = $userdetail->role;
+                if ($role == "Admin")
+                {
+                    // $req->session()->put("role","Admin");
+                    session(["role" => "Admin"]);
+                    session(['name' => $userdetail->name ]);
+                    session(["id"=>$userdetail->id]);
+                    return redirect ("/admin");
+                } 
+                elseif ($role == "Agent")
+                {
+                    session(["role"=>"Agent"]);     
+                    session(['name' => $userdetail->name]);
+                    session(["id"=>$userdetail->id]);
+                    session(["name"=>$userdetail->name]);
+                    // session(["created_at"=>$userdetail->created_at]);
 
+                    if($userdetail->firstlogin == 0)
+                    {
+                        return view ("/resetpassword");
+                    }
+
+                    return redirect ("/agent");
+                }
             }
+            else
+            {
+                // return view("/login", ["error"=>"Invalid password"]);
+                return view("/login", ["error"=> __('loginControllerAlert.passwordError') ]);
+            }
+        }
+        else
+        {
+            // return view('/login', ["error"=>"Invalid email"]);
+            return view('/login', ["error"=> __('loginControllerAlert.emailError') ]);
+        }
+    }
 
-            return redirect ("/agent");
-        }
-        }
-        else
-        {
-            return view("/login", ["error"=>"Invalid password"]);
-        }
-        }
-        else
-        {
-            return view('/login', ["error"=>"Invalid email"]);
-        }
+    function selectLanguage(Request $req)
+    {
+        $language = $req->lang;
+        session(['language'=> $language]);
+        return redirect('/login');
     }
 
     function updateData(Request $req)
@@ -139,7 +153,8 @@ class userController extends Controller
     function addAgent(Request $req)       
     {
         $req->validate([
-            'email'=>['unique:userdetails']
+            'email'=>['required', 'unique:userdetails'],
+            'name'=>['required']
         ]);
 
         $userdetail = new Userdetail;  // here we define new instance of table. this is done when we have to add a new row of data

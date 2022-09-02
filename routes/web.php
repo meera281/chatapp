@@ -32,9 +32,14 @@ Route::get('/logout', function() {
 
 Route::group(['middleware'=> ['checkLogin']], 
 function() {
-    Route::view('/login','login');
-    Route::post('getdata',[userController::class,'getData']);
     
+    // Route::view('/login','login');
+    Route::get('/login', function () {
+        App::setlocale(session('language'));
+        return view('login');
+    });
+    Route::post('/selectlanguage',[userController::class,'selectLanguage']);
+    Route::post('getdata',[userController::class,'getData']);
     Route::view('/forgetpassword','forgetpassword');                            
     Route::post('updatedata',[userController::class,'updateData']);            // forget pw for login where we enter email
     Route::post('checkotp',[userController::class,'checkOtp']);                // enter otp after entering email in forget pw

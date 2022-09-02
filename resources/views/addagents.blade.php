@@ -9,19 +9,17 @@
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
   </div>
 @endif
-      
-@if ($errors->any())
-  <div class="alert alert-danger">
-    @foreach ($errors->all() as $error)
-      {{ $error }}
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    @endforeach       
+
+@if ($errors->any())                   <!-- Displaying The Validation Errors -->
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <ul>
+      @foreach ($errors->all() as $error)
+        <li><strong>{{ $error }}</strong></li>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      @endforeach
+    </ul>
   </div>
 @endif
-
-
-
-
 
 
 <div class="container-fluid col-lg-12" >
@@ -44,11 +42,11 @@
               
                @csrf
                <div class="form-floating">
-                    <input type="email" class="form-control" id="floatingInput" name="email" placeholder="name@example.com" required>
+                    <input type="email" class="form-control" id="floatingInput" name="email" placeholder="name@example.com">
                     <label for="floatingInput">Email Address</label>
                 </div>
                 <div class="form-floating mt-3">
-                    <input type="text" class="form-control" id="floatingname" name="name" placeholder="Enter name" required>
+                    <input type="text" class="form-control" id="floatingname" name="name" placeholder="Enter name">
                     <label for="floatingPassword">Name</label>
                 </div>
 

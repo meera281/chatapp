@@ -44,30 +44,28 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <form method="post" action='/getagentfromadmin'>
-                @csrf
-                <!-- <div class="form-floating text-right"> -->
-
-                  <a  class="nav-link active" style="background-color: rgba(255,255,255,.9);
-    color: #343a40; margin-bottom:3px;"> <i class="far fa-circle nav-icon"></i>
-                      <button type="submit" style="border:0px; padding-left: 0px" >Agent Dashboard </button>
-                  </a>
-                <!-- <div> -->
-              </form>
-            </li>
               <li class="nav-item">
                 <a href="/addagents" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Add Agent</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <form method="post" action='/getagentfromadmin'>
+                  @csrf
+                  <!-- <div class="form-floating text-right"> -->
+                    <a  class="nav-link active" style="background-color: rgba(255,255,255,.9); color: #343a40; margin-bottom:3px;"> <i class="far fa-circle nav-icon"></i>
+                      <button type="submit" style="border:0px; padding-left: 0px" >Go to Agent Dashboard </button>
+                    </a>
+                  <!-- <div> -->
+                </form>
+              </li>
               <!-- <li class="nav-item">
                 <a href="/agentlist" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Agent List</p>
-                </a> -->
-              </li>
+                </a>
+              </li> -->
               <li class="nav-item">
                 <a href="/logout" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>

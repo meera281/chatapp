@@ -72,7 +72,7 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <a href="javascript:void(0);" data-toggle="modal" data-target="#view_info">
-                                        <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar">
+                                    <img src='https://bootdey.com/img/Content/avatar/avatar1.png' alt='avatar'>
                                     </a>
                                     <div class="chat-about">
                                         <h6 class="chat-title m-b-0" style="padding-top:11px;"></h6>
@@ -192,7 +192,7 @@
 
                                     fetchChat(buttonid);
 
-                                    }, 5000);
+                                    }, 7000);
 
                                 function stopLoading(){
                                     clearInterval(refresh);

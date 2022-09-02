@@ -119,42 +119,86 @@
   </head>
 
   <body>
+
     @if(isset($error))
       <div class="alert alert-danger alert-dismissible fade show" role="alert">
-  <strong>{{$error}}</strong>
-  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
+        <strong>{{$error}}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
     @endif
 
+    @if ($errors->any())                                                    <!-- Displaying The Validation Errors -->
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <ul>
+          @foreach ($errors->all() as $error)
+            <li><strong>{{ $error }}</strong></li>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          @endforeach
+        </ul>
+      </div>
+    @endif
+
+    <!-- <form method="POST" action="/selectlanguage">
+      @csrf
+    <p>Select Language</p>   
+      <div class="form-check">
+        <input type="radio" name="lang" value="en">
+        <label> English </label>
+      </div>
+      <div class="form-check">
+        <input type="radio" name="lang" value="hi">
+        <label> Hindi </label>
+      </div>
+      <div class="form-check">
+        <input type="radio" name="lang" value="ko">
+        <label> Korean </label>
+      </div>
+      <button type="submit" class="btn-primary">Submit</button> 
+    </form> -->
+
+    <form method="POST" action="/selectlanguage" style="padding-left: 1295px;margin-top: 5px;">
+      @csrf
+      <!-- <label for="lang">Select Language</label> -->
+      <select name="lang">
+        <option name="lang">{{__('login.language')}}</option>
+        <option name="lang" value="en">{{__('login.english')}}</option>
+        <option name="lang" value="hi">{{__('login.hindi')}}</option>
+        <option  name="lang" value="ko">{{__('login.korean')}}</option>
+      </select>
+      <button type="submit" class="btn btn-sm" style="background: linear-gradient(to right, #9C27B0, #E040FB);">{{__('login.submit')}}</button>
+    </form>
 
     <div class="main">
-      <p class="sign" align="center">FAVEO Chat</p>
+      <!-- <p class="sign" align="center">FAVEO Chat</p> -->
+      <p class="sign" align="center">{{__('login.chatname')}}</p>     <!--'filename.keyname'-->
       <form class="form1" method="POST" action="/getdata">
         @csrf
-        <input class="un " type="text" name="email" align="center" placeholder="Email" required>
-        <input class="pass" type="password" name="password" align="center" placeholder="Password" required>
+        <!-- <input class="un " type="text" name="email" align="center" placeholder="Email"> -->
+        <input class="un " type="text" name="email" align="center" placeholder="{{__('login.email')}}">
+        <!-- <input class="pass" type="password" name="password" align="center" placeholder="Password"> -->
+        <input class="pass" type="password" name="password" align="center" placeholder="{{__('login.password')}}">
         <!-- <a class="submit" align="center">Login</a> -->
-        <button type="submit" class="submit" align="center">Login</button>
-        <p class="forgot" align="center"><a href="/forgetpassword">Forgot Password?</p>    
+        <!-- <button type="submit" class="submit" align="center">Login</button> -->
+        <button type="submit" class="submit" align="center">{{__('login.login')}}</button>
+        <!-- <p class="forgot" align="center"><a href="/forgetpassword">Forgot Password</p> -->
+        <p class="forgot" align="center"><a href="/forgetpassword">{{__('login.forgetpw')}}</p>  
       </form>
     </div>
 
-
       <!-- <form class="container col-md-4 mt-3" method="POST" action="/getdata">
         @csrf
-          <h2>Login</h2>
-    <div class="mb-3">
-      <label for="exampleInputEmail1" class="form-label">Email address</label>
-      <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-      <div id="emailHelp" class="form-text"></div>
-    </div>
-    <div class="mb-3">
-      <label for="exampleInputPassword1" class="form-label">Password</label>
-      <input type="password" name="password" class="form-control" id="exampleInputPassword1">
-    </div>
-    <button type="submit" class="btn btn-primary w-100 mb-3">Login</button>
-    <a href="/forgetpassword" class="btn btn-primary  w-100 mb-3" role="button"> Forgot Password </a>
-    
+        <h2>Login</h2>
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Email address</label>
+          <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+          <div id="emailHelp" class="form-text"></div>
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label">Password</label>
+          <input type="password" name="password" class="form-control" id="exampleInputPassword1">
+        </div>
+        <button type="submit" class="btn btn-primary w-100 mb-3">Login</button>
+        <a href="/forgetpassword" class="btn btn-primary  w-100 mb-3" role="button"> Forgot Password </a>
       </form> -->
 
      </div>
